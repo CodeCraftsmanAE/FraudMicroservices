@@ -3,10 +3,7 @@ package com.aelatrouz.customer;
 import com.aelatrouz.customer.services.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -16,8 +13,15 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 
+	@GetMapping
+	public String checkHealth() {
+		return "working correctly!";
+	}
+
+
 	@PostMapping
 	public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
 		log.info("Register customer {}", customerRegistrationRequest );
+		customerService.registerCustomer(customerRegistrationRequest);
 	}
 }
